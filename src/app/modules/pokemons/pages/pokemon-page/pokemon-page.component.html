@@ -1,0 +1,35 @@
+@if (pokemonResource.isLoading()) {
+<div class="fixed inset-0 flex items-center justify-center z-50">
+  <div
+    class="w-16 h-16 border-t-4 border-blue-500 rounded-full animate-spin"
+  ></div>
+</div>
+}
+
+<!--  -->
+@if (pokemonResource.hasValue()) { @let pokemon = pokemonResource.value()!;
+
+<section class="flex flex-col justify-center">
+  <div class="flex justify-center">
+    <h1 class="text-4xl font-bold capitalize my-5">
+      {{ pokemon.name }}
+    </h1>
+  </div>
+</section>
+
+<section class="flex flex-col justify-center items-center w-full">
+  <img
+    [src]="pokemon.sprites?.other?.['official-artwork']?.front_default"
+    [alt]="pokemon.name"
+    class="w-64 h-64"
+    width="256px"
+    height="256px"
+  />
+
+  @if( pokemon.cries?.latest ) {
+  <audio controls class="my-10">
+    <source [src]="pokemon.cries!.latest" type="audio/wav" />
+  </audio>
+  }
+</section>
+}
